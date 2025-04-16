@@ -16,7 +16,7 @@ class Aerolineas{
         $coleccionVuelos = $this->getColVuelosProgramados();
         $coleccionAerolinea = [];
         foreach($coleccionVuelos as $objVuelo){
-            $distino2 = $objVuelo->getDestino();
+            $destino2 = $objVuelo->getDestino();
             $cantidadDisponible = $this->getAsientosDisponibles();
             if($destino2 == $destino && $cantidadDisponible <= $cant_asientos){
                 array_push($coleccionAerolinea, $objVuelo);

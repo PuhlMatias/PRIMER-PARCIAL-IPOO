@@ -48,8 +48,14 @@ class Aeropuerto{
     }
 
 
-    public function ventaAutomatica($cantidadAsientos, $fecha, $destino){
-
+    public function ventaAutomatica($cantPasajeros, $fecha, $destino) {
+        $venta = false;
+        foreach ($this->getColAerolineas() as $vuelo) {
+            if (!$venta && $vuelo->getDestino() == $destino && $vuelo->getFecha() == $fecha) {
+                $venta = $vuelo->asignarAsientosDisponibles($cantPasajeros);
+            }
+        }
+        return $venta;
     }
 
     public function promedioRecaudadoXAerolinea($identificacion){
@@ -58,8 +64,8 @@ class Aeropuerto{
         foreach($identificacion as $vuelos){
             $coleccionDeVuelos = $vuelos->getColVuelosProgramados();
             foreach($coleccionDeVuelos as $vuelo){
-                $recaudado += $vuelo->getImporte(); // Suma el importe del vuelo
-                $contadorVuelos++; // Cuenta el vuelo
+                $recaudado += $vuelo->getImporte(); 
+                $contadorVuelos++; 
             }
         }
         if ($contadorVuelos > 0) {
